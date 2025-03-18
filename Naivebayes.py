@@ -36,7 +36,7 @@ A11= st.selectbox("กรุณาเลือก ST_Slope Down = 1 Flat = 2 UP 
 if st.button("🔍 Predict"):
     user_input = np.array([[A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11]])
     prediction = model.predict(user_input)
-    predicted_class = HeartDisease[prediction[0]]
+    predicted_class = HeartDisease[prediction[0,1]]
     
     st.success(f"🌼 ผลลัพธ์: ของการเป็นโรคหัวใจ **{predicted_class}**")
 
