@@ -23,7 +23,7 @@ st.write("กรอกข้อมูลHeartDisease แล้วให้โม
 A1 = st.number_input("กรุณาเลือกข้อมูล Age(อายุ)")
 A2 = st.selectbox("กรุณาเลือก Sex(เพศ)ชาย=1 หญิง=0",[0,1])
 A3 = st.selectbox("กรุณาเลือก ChestPainType ASY = 1 ATA =2 NAP = 3 TA = 4",[1,2,3,4])
-A4 = st.sidebar("กรุณาเลือกข้อมูล RestingBP 0 - 200",(X[:, 3].min()), float(X[:, 3].max()), float(X[:, 3].mean()))
+A4 = st.sidebar("กรุณาเลือกข้อมูล RestingBP 0 - 200",X[:, 3].min(), X[:, 3].max(), float(X[:, 3].mean()))
 A5 = st.sidebar("กรุณาเลือกข้อมูล Cholesterol 0 - 603")
 A6 = st.selectbox("กรุณาเลือก FastingBS ",[0,1])
 A7 = st.selectbox("กรุณาเลือก RestingECG LVH = 1 Normal = 2 ST =3",[1,2,3])
