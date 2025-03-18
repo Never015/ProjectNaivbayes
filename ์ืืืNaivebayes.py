@@ -1,0 +1,42 @@
+import streamlit as st
+import numpy as np
+import pandas as pd
+from sklearn import datasets
+from sklearn.naive_bayes import GaussianNB
+
+# 📌 โหลดข้อมูล Heart Dataset
+Heart = pd.read_csv("./data/heart02.csv")
+X = Heart.drop(columns=['HeartDisease'])
+y = Heart.HeartDisease
+HeartDisease=Heart.HeartDisease
+
+
+# 📌 สร้างและฝึกโมเดล Naïve Bayes
+model = GaussianNB()
+model.fit(X, y)
+
+# 📌 สร้าง Web App ด้วย Streamlit
+st.title("HeartDisease - Naïve Bayes")
+st.write("กรอกข้อมูลHeartDisease แล้วให้โมเดลทำนายHeartDisease")
+
+# 📌 สร้างอินพุตให้ผู้ใช้กรอกข้อมูล
+A1 = st.number_input("กรุณาเลือกข้อมูล Age(อายุ)")
+A2 = st.selectbox("กรุณาเลือก Sex(เพศ)ชาย=1 หญิง=0")
+A3 = st.selectbox("กรุณาเลือก ChestPainType ASY = 1 ATA =2 NAP = 3 TA = 4")
+A4 = st.number_input("กรุณาเลือกข้อมูล RestingBP 0 - 200",float(X[:, 3].min()), float(X[:, 3].max()), float(X[:, 3].mean()))
+A5 = st.number_input("กรุณาเลือกข้อมูล Cholesterol 0 - 603",float(X[:, 4].min()), float(X[:, 4].max()), float(X[:, 4].mean()))
+A6 = st.selectbox("กรุณาเลือก FastingBS ",[0,1])
+A7 = st.selectbox("กรุณาเลือก RestingECG LVH = 1 Normal = 2 ST =3",[1,2,3])
+A8 = st.number_input("กรุณาเลือกข้อมูล MaxHR 0 - 202",float(X[:, 7].min()), float(X[:, 7].max()), float(X[:, 7].mean()))
+A9 = st.selectbox("กรุณาเลือก ExerciseAngina Y = 1 N = 0",[0,1])
+A10 = st.number_input("กรุณาเลือกข้อมูล Oldpeak -2.6 - 6.2",float(X[:, 9].min()), float(X[:, 9].max()), float(X[:, 9].mean()))
+A11= st.selectbox("กรุณาเลือก ST_Slope Down = 1 Flat = 2 UP = 3",[1,2,3])
+
+# 📌 ปุ่มกดเพื่อทำนาย
+if st.button("🔍 Predict"):
+    user_input = np.array([[A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11]])
+    prediction = model.predict(user_input)
+    predicted_class = HeartDisease[prediction[0]]
+    
+    st.success(f"🌼 ผลลัพธ์: ดอกไอริสชนิด **{predicted_class}**")
+
